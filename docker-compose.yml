@@ -1,0 +1,126 @@
+version: '3.3'
+services:
+  discovery-server:
+    build:
+      context: ./discovery-server
+    container_name: discovery-server
+    image: arkadiuszbojarski/discovery-server:latest
+    expose:
+    - 8761
+    environment:
+     - DISCOVERY_CLIENT=discovery-client
+     - DISCOVERY_HOST=discovery-server
+     - DISCOVERY_PASSWORD=d1sc0v3r4-s3cr3t
+     - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    restart: always
+    networks:
+    - spring-cloud-network
+    logging:
+      driver: json-file
+  configuration-server:
+    build:
+      context: ./configuration-server
+    image: arkadiuszbojarski/configuration-server:latest
+    expose:
+    - 8888
+    restart: always
+    environment:
+    - CONFIG_CLIENT=config-client
+    - CONFIG_SECRET=c0n716-s3cr3t
+    - CONFIG_STORE_ALIAS=configkey
+    - CONFIG_STORE_PASSWORD=stor3-s3cr3t
+    - CONFIG_STORE_SECRET=k3y-s3cr3t
+    - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    networks:
+    - spring-cloud-network
+    links:
+    - discovery-server:discovery-server
+    depends_on:
+    - discovery-server
+    logging:
+      driver: json-file
+  uaa-server:
+    build:
+      context: ./uaa-server
+    image: arkadiuszbojarski/uaa-server:latest
+    expose:
+    - 8081
+    restart: always
+    environment: 
+    - CONFIG_CLIENT=config-client
+    - CONFIG_SECRET=c0n716-s3cr3t
+    - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    networks:
+    - spring-cloud-network
+    links:
+    - discovery-server:discovery-server
+    - configuration-server:configuration-server
+    depends_on:
+    - configuration-server
+    logging:
+      driver: json-file
+  tasks-service:
+    build:
+      context: ./tasks-service
+    image: arkadiuszbojarski/tasks-service:latest
+    expose:
+    - 8082
+    restart: always
+    environment: 
+    - CONFIG_CLIENT=config-client
+    - CONFIG_SECRET=c0n716-s3cr3t
+    - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    networks:
+    - spring-cloud-network
+    links:
+    - discovery-server:discovery-server
+    - configuration-server:configuration-server
+    depends_on:
+    - configuration-server
+    logging:
+      driver: json-file
+  gateway-server:
+    build:
+      context: ./gateway-server
+    image: arkadiuszbojarski/gateway-server:latest
+    expose:
+    - 8080
+    ports:
+    - 8080:8080
+    restart: always
+    environment: 
+    - CONFIG_CLIENT=config-client
+    - CONFIG_SECRET=c0n716-s3cr3t
+    - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    networks:
+    - spring-cloud-network
+    links:
+    - discovery-server:discovery-server
+    - configuration-server:configuration-server
+    - uaa-server:uaa-server
+    - tasks-service:tasks-service
+    depends_on:
+    - uaa-server
+    - tasks-service
+    logging:
+      driver: json-file
+  client:
+    build:
+      context: ./client
+    image: arkadiuszbojarski/client:latest
+    expose:
+    - 80
+    ports:
+    - 80:80
+    restart: always
+    networks:
+    - spring-cloud-network
+    links:
+    - gateway-server:gateway-server
+    depends_on:
+    - gateway-server
+    logging:
+      driver: json-file
+networks:
+  spring-cloud-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: uaa
+  jpa:
+    hibernate:
+      ddl-auto: create
+server:
+  port: 8081
+  use-forward-headers: true
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+management:
+  security:
+    sessions: never
+security:
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      filter-order: 3
+store: '{cipher}AQC9FPll+ECNTZod2AlI6sw3MgQpYFTmRE04052LwvyKxkCc9Z82Vv9yROrbH9K0988b13RjfXRfUf79t0EOjfhgPlvS7pOYXFaQ6CRF0cSjZ9jf1zWH/yoanfoLPT0GdTE98hMPnPGzLQa6WrRUIUuJCS4bn/onrehgtdXZe5sOWVzLU2GCgggIhqkAnppCREC3hi2a1B2MwqNihSI7h+CyBdCxMrrSnQN7h0XVkVQl+MxsNF9+fWWVSpb+gIv7K8IVdmDNV9xkTDH8AqKwgqjbstTUuyKDSjDS6K0H4ZCBiEJRmHW+C5v5nlYeI+AGAkWET/mzUdwSf6bMMEmwPGGcrlwrVk6tKbB+WB1gYdmnabBJjYf6RQTY00iFnFOKfHI='
+alias: '{cipher}AQA06hvd6iBcwHuCFjhoqgfBW/GSr5kv6lRZu54JvoPdAXCnHdrieykNoGNCW3YmLkij5khCLDqUX9mG5N3s62B6wWdws9QGa2uY3zFhYs44lMK79VA1YblPp7ycOpDHwQT6Q7LQU5xC34k6lF8E3v72HnRoMi0kFT3w71GDB7iFVDwbb1/BA4th30txbrhHwOh0Y+feycQno0wuv6Mnj1gP3i5FqoyTklQF6MFO25dJyL4Ql7K54lY/fWotSlvrStVeckgKXDQTs8f+ga26ccgsV0wuJIRvY6NQrTOt3F1DWybU7KazCnZMgNv4z3GhfgtvLGoXEw2PE5f0l5oKOkvCogFwuy0lgh6Rbr8tHPCfUC7uk5KI7SoD3a5qXcPg2t4='
+store_key: '{cipher}AQBl68hGEkOuj5wzOFAzrBpdgQ/VS85vT1lBFoRanr8FhkcUGGl9VoVdbVvr9Zzo4mcE4ly1ohs0gMQwQJ4W4KR20edHRhC5P1eRrHAmUk8wMFreDl2retTQJcQApQVrx8UhZoOrHbgEhUcXVsMGxz5odJwgXeYOcp6WZaDI6dLJQnvXroel5vSaBmxfcyTKPR3ttxDUEPbNUdMnKHIMx0DKjN7SgKo68srm6KWHXEhjdMb7iBHM0hPEjp/AeSz4f/WkB8qHGd8BRIxhWLMR/BFmlxd9nG+pJjtUR93y9s4erfxbMK7X+LPaxMIYv8ITwFXqMEfAU/IwuAcFexNOdaU3FEX+fOFXpICgbww5KF6OcEbo4B32dk0X+p38HvzswQo='

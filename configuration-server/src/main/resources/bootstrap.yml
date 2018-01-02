@@ -1,0 +1,25 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git@github.com/arkadiuszbojarski/tms
+          searchPaths: config
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URL}
+encrypt:
+  key-store:
+    location: classpath:/config.jks
+    password: ${CONFIG_STORE_PASSWORD}
+    alias: ${CONFIG_STORE_ALIAS}
+    secret: ${CONFIG_STORE_SECRET}
+security:
+  user:
+    name: ${CONFIG_CLIENT}
+    password: ${CONFIG_SECRET}

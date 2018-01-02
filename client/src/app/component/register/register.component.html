@@ -1,0 +1,17 @@
+<main role="main" class="inner cover">
+  <h1 class="cover-heading">Create new account</h1>
+  <p class="lead">Fill in below form and hit register to create new account.</p>
+
+  <div *ngIf="registering; else registerForm">Registering...</div>
+  <ng-template #registerForm>
+    <form class="form-signin">
+      <label for="inputUsername" class="sr-only">Username</label>
+      <input type="text" name="inputUsername" [(ngModel)]="user.username" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" name="inputPassword" [(ngModel)]="user.password" class="form-control" placeholder="Password" required>
+      <label for="inputConfirm" class="sr-only">Confirm password</label>
+      <input type="password" name="inputConfirm" [(ngModel)]="confirm" class="form-control" placeholder="Password" required>
+      <button class="btn btn-lg btn-primary btn-block" (click)="register()" type="submit">Register</button>
+    </form>
+  </ng-template>
+</main>

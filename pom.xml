@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.bojarski</groupId>
+	<artifactId>tms</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>tms</name>
+
+	<modules>
+		<module>discovery-server</module>
+		<module>configuration-server</module>
+		<module>uaa-server</module>
+		<module>tasks-service</module>
+		<module>gateway-server</module>
+		<module>user-service</module>
+	</modules>
+
+	<description>Task management system</description>
+</project>

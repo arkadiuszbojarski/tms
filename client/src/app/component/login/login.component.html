@@ -1,0 +1,18 @@
+<main role="main" class="inner cover">
+  <h1 class="cover-heading">Welcome</h1>
+  <p class="lead">Manage all your tasks and things that need to be done with single login!</p>
+
+  <div *ngIf="logging; else loginForm">Signing in...</div>
+  <ng-template #loginForm>
+    <form class="form-signin" (ngSubmit)="login()">
+      <label for="username" class="sr-only">Username</label>
+      <input type="text" name="username" [(ngModel)]="user.username" class="form-control" placeholder="Username" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" name="password" [(ngModel)]="user.password" class="form-control" placeholder="Password" required>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+    <p>Dont have an account yet? Create one below.</p>
+    <a href="/register">New account.</a>
+  </ng-template>
+</main>

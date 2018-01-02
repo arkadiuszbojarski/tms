@@ -1,0 +1,13 @@
+spring:
+ cloud:
+  config:
+   name: uaa
+   username: ${CONFIG_CLIENT}
+   password: ${CONFIG_SECRET}
+   discovery:
+    serviceId: config
+    enabled: true
+eureka:
+ client:
+  serviceUrl:
+   defaultZone: ${EUREKA_URL}

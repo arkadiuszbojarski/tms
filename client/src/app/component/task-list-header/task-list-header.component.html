@@ -1,0 +1,125 @@
+<form class="form" (ngSubmit)="createTask()" novalidate>
+  <legend>Create task</legend>
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <div class="input-group">
+        <div class="input-group-addon col-sm-2">
+          Task title
+        </div>
+        <input type="text" id="title" class="form-control col-sm-10" placeholder="Water the plants..." required name="title" [(ngModel)]="task.title">
+        <span class="input-group-btn">
+          <button class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed" type="button">
+            <i class="material-icons">schedule</i>
+          </button>
+          <button class="btn btn-outline-secondary" type="submit">
+            <i class="material-icons">add_box</i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+    <div class="form-row">
+      <div class="form-group col-sm-6">
+        <div class="input-group">
+          <span class="input-group-addon col-sm-4">
+            Start
+          </span>
+          <input class="form-control col-sm-8" placeholder="2018-10-01" name="start" [(ngModel)]="schedule.start" ngbDatepicker #start="ngbDatepicker">
+          <button class="input-group-addon btn btn-outline-secondary" (click)="start.toggle()" type="button">
+            <i class="material-icons">date_range</i>
+          </button>
+        </div>
+      </div>
+      <div class="form-group col-sm-6">
+        <div class="input-group">
+          <span class="input-group-addon col-sm-4">
+            Deadline
+          </span>
+          <input class="form-control col-sm-8" [(minDate)]="schedule.start" placeholder="2018-10-07" name="deadline" [(ngModel)]="schedule.deadline" ngbDatepicker #deadline="ngbDatepicker">
+          <button class="input-group-addon btn btn-outline-secondary" (click)="deadline.toggle()" type="button">
+            <i class="material-icons">date_range</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>Schedule repeating</legend>
+
+      <div class="form-row">
+        <div class="form-group col-sm-4">
+          <div class="input-group">
+            <span class="input-group-addon col-sm-4">
+              Days
+            </span>
+            <button class="input-group-addon btn btn-outline-secondary" (click)="decreaseRepeatDays()" type="button">
+              <i class="material-icons">remove</i>
+            </button>
+            <input name="days" class="form-control" type="number" [(ngModel)]="task.repeatDays" min="0">
+            <button class="input-group-addon btn btn-outline-secondary" (click)="increaseRepeatDays()" type="button">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <div class="input-group">
+            <span class="input-group-addon col-sm-4">
+              Months
+            </span>
+            <button class="input-group-addon btn btn-outline-secondary" (click)="decreaseRepeatMonths()" type="button">
+              <i class="material-icons">remove</i>
+            </button>
+            <input name="months" class="form-control" type="number" [(ngModel)]="task.repeatMonths" min="0">
+            <button class="input-group-addon btn btn-outline-secondary" (click)="increaseRepeatMonths()" type="button">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <div class="input-group">
+            <span class="input-group-addon col-sm-4">
+              Years
+            </span>
+            <button class="input-group-addon btn btn-outline-secondary" (click)="decreaseRepeatYears()" type="button">
+              <i class="material-icons">remove</i>
+            </button>
+            <input name="years" class="form-control" type="number" [(ngModel)]="task.repeatYears" min="0">
+            <button class="input-group-addon btn btn-outline-secondary" (click)="increaseRepeatYears()" type="button">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <div class="input-group">
+        <span class="input-group-addon col-sm-2">
+          Repeat until
+        </span>
+        <input class="form-control col-sm-10" [(minDate)]="schedule.start" placeholder="2018-10-01" name="until" [(ngModel)]="schedule.until" ngbDatepicker #until="ngbDatepicker">
+        <button class="input-group-addon btn btn-outline-secondary" (click)="until.toggle()" type="button">
+          <i class="material-icons">date_range</i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <button class="btn btn-outline-secondary col-sm-2" type="button" (click)="clearForm()">
+        Clear <i class="material-icons">cancel</i>
+      </button>
+        <button class="btn btn-outline-secondary col-sm-2" type="submit">
+          Create <i class="material-icons">done</i>
+        </button>
+    </div>
+  </div>
+  </fieldset>
+  </div>
+</form>
