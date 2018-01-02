@@ -16,8 +16,11 @@ security:
     enabled: false
   oauth2:
     resource:
-      filterOrder: 3
-      userInfoUri: /uaa/users/me
+      jwt:
+        keyValue:
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq01JcIXhkpPVdnzF7S9Nrir0Bn0suVkfh+5LO9g8n6dtRk3y/n2wahj/qWWadeF97zBIlkCFUBv6q4BA1sWbEwwHb7yWlecwK9sWka2hN0qy8+ISMWt3okN4GQbrPN4O6S7t0W1TRoPQV5x3RfKdViUSd+o+1A0Q2V0HndwMp4x38i6ptWDJpdSy9tNYpd1yQ+FdxtLXtgSS5P+CfJdokiZTbm4lLbuXugn/TtXfwtf2Y8Ihrvf/Xcwf5f/+2zrTPdw02zVmaQiXUw4YV/hnWStv/gQlXFGbqUO7MRJf9RT1uDPSQr8XrM0+h7wkbfMcd4pv4jeJHtgNPKfojHga6wIDAQAB
+          -----END PUBLIC KEY-----
 management:
   security:
     sessions: never
