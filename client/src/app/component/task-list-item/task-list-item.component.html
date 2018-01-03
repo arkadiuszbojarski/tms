@@ -1,26 +1,35 @@
+<div class="row">
+  <div class="col-sm-6">
+    Task start:
+    <span class="badge badge-secondary">{{ task.start | date }}</span>
+  </div>
+  <div class="col-sm-6">
+    Task deadline:
+    <span class="badge badge-secondary">{{ task.deadline | date }}</span>
+  </div>
+</div>
 <form (ngSubmit)="updateTask()">
-  <div class="form-group">
-    <div class="input-group">
-      <span class="input-group-btn">
-        <button class="btn btn-outline-secondary" type="button" (click)="toggleCompleted()">
-          <i class="material-icons" *ngIf="task.completed; else uncomplated">check_box</i>
-          <ng-template #uncomplated>
-            <i class="material-icons" *ngIf="!task.completed">check_box_outline_blank</i>
-          </ng-template>
-        </button>
-      </span>
-      <input type="text" name="title" class="form-control" [class.completed]="task.completed" [(ngModel)]="task.title" required>
-      <span class="input-group-btn">
-        <button class="btn btn-outline-secondary" type="submit">
-          <i class="material-icons">edit</i>
-        </button>
-        <!-- <button class="btn btn-outline-secondary" (click)="open(content)" type="button">
-          <i class="material-icons">date_range</i>
-        </button> -->
-        <button class="btn btn-outline-secondary" type="button" (click)="deleteTask()">
-          <i class="material-icons">delete</i>
-        </button>
-      </span>
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-outline-secondary" type="button" (click)="toggleCompleted()">
+            <i class="material-icons" *ngIf="task.completed; else uncomplated">check_box</i>
+            <ng-template #uncomplated>
+              <i class="material-icons" *ngIf="!task.completed">check_box_outline_blank</i>
+            </ng-template>
+          </button>
+        </span>
+        <input type="text" name="title" class="form-control" [class.completed]="task.completed" [(ngModel)]="task.title" required>
+        <span class="input-group-btn">
+          <button class="btn btn-outline-secondary" type="submit">
+            <i class="material-icons">edit</i>
+          </button>
+          <button class="btn btn-outline-secondary" type="button" (click)="deleteTask()">
+            <i class="material-icons">delete</i>
+          </button>
+        </span>
+      </div>
     </div>
   </div>
 </form>

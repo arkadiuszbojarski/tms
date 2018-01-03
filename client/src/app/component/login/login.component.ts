@@ -23,8 +23,16 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.logging = true;
     this._service.login(this.user).subscribe((token: Token) => {
+      const now = new Date();
+      console.log(now);
       this._service.storeCurrentUser(token.access_token);
-      this._router.navigate(['/tasks']);
+      this._router.navigate(
+        ['/tasks'],
+        { queryParams: {
+            sort: 'start',
+            day: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`
+          }
+        });
       this.user = new User();
     });
   }
