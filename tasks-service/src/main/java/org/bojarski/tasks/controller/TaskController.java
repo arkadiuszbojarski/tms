@@ -5,6 +5,7 @@ package org.bojarski.tasks.controller;
 
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.querydsl.core.BooleanBuilder;
@@ -105,11 +108,17 @@ public class TaskController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> search(
 			@PageableDefault(size = 20, sort = "title", direction = Direction.ASC) final Pageable pageable,
-			@QuerydslPredicate(root = Task.class) final Predicate initial, final Principal principal) {
+			@QuerydslPredicate(root = Task.class) final Predicate initial,
+			@RequestParam(required = false, name = "day") @DateTimeFormat(pattern="yyyy-MM-dd") final Date day,
+			final Principal principal) {
 		QTask task = QTask.task;
 		BooleanBuilder predicate = new BooleanBuilder(initial);
 
 		predicate.and(task.author.eq(principal.getName()));
+		Optional.ofNullable(day).ifPresent(forDay -> {
+			predicate.and(task.start.before(day));
+			predicate.and(task.deadline.isNull().or(task.deadline.after(day)));
+		});
 		Page<Task> tasks = taskService.search(predicate, pageable);
 
 		return ResponseEntity.ok(tasks.hasContent() ? pagedTaskAssemble.toResource(tasks, taskAssembler)

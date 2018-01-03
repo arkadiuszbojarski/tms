@@ -26,7 +26,8 @@ public class Messages {
 	public static final String NEGATIVE_REPEAT_YEARS = "repeat.years.only.positive";
 	public static final String NEGATIVE_REPEAT_MONTHS = "repeat.months.only.positive";
 	public static final String NEGATIVE_REPEAT_DAYS = "repeat.days.only.positive";
-	public static final String INVALID_REPEAT_PERIOD = "repeat.at.least.one.field.positive"; 
+	public static final String INVALID_REPEAT_PERIOD = "repeat.at.least.one.field.positive";
+	public static final String DATE_FORMAT = "yyyy-MM-dd"; 
 
 
 }
