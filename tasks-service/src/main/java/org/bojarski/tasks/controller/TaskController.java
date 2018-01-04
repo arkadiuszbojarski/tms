@@ -116,8 +116,8 @@ public class TaskController {
 
 		predicate.and(task.author.eq(principal.getName()));
 		Optional.ofNullable(day).ifPresent(forDay -> {
-			predicate.and(task.start.before(day));
-			predicate.and(task.deadline.isNull().or(task.deadline.after(day)));
+			predicate.and(task.start.loe(day));
+			predicate.and(task.deadline.isNull().or(task.deadline.goe(day)));
 		});
 		Page<Task> tasks = taskService.search(predicate, pageable);
 

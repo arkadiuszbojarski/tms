@@ -1,5 +1,31 @@
 version: '3.3'
 services:
+  tasks-mysql:
+    container_name: tasks-mysql
+    image: mysql:latest
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_DATABASE=tasks
+    - MYSQL_USER=dbuser
+    - MYSQL_PASSWORD=dbpass
+    expose:
+    - 3306
+    restart: always
+    networks:
+    - spring-cloud-network
+    logging:
+      driver: json-file
+    volumes:
+    - tasksdatavolume:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3000:8080
+    depends_on:
+    - tasks-mysql
+    networks:
+    - spring-cloud-network
   discovery-server:
     build:
       context: ./discovery-server
@@ -8,10 +34,10 @@ services:
     expose:
     - 8761
     environment:
-     - DISCOVERY_CLIENT=discovery-client
-     - DISCOVERY_HOST=discovery-server
-     - DISCOVERY_PASSWORD=d1sc0v3r4-s3cr3t
-     - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    - DISCOVERY_CLIENT=discovery-client
+    - DISCOVERY_HOST=discovery-server
+    - DISCOVERY_PASSWORD=d1sc0v3r4-s3cr3t
+    - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
     restart: always
     networks:
     - spring-cloud-network
@@ -46,7 +72,7 @@ services:
     expose:
     - 8081
     restart: always
-    environment: 
+    environment:
     - CONFIG_CLIENT=config-client
     - CONFIG_SECRET=c0n716-s3cr3t
     - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
@@ -66,16 +92,23 @@ services:
     expose:
     - 8082
     restart: always
-    environment: 
+    environment:
     - CONFIG_CLIENT=config-client
     - CONFIG_SECRET=c0n716-s3cr3t
     - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    - DATABASE_HOST=tasks-mysql
+    - DATABASE_USER=dbuser
+    - DATABASE_PASSWORD=dbpass
+    - DATABASE_NAME=tasks
+    - DATABASE_PORT=3306
     networks:
     - spring-cloud-network
     links:
     - discovery-server:discovery-server
     - configuration-server:configuration-server
+    - tasks-mysql:tasks-mysql
     depends_on:
+    - tasks-mysql
     - configuration-server
     logging:
       driver: json-file
@@ -88,7 +121,7 @@ services:
     ports:
     - 8080:8080
     restart: always
-    environment: 
+    environment:
     - CONFIG_CLIENT=config-client
     - CONFIG_SECRET=c0n716-s3cr3t
     - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
@@ -121,6 +154,8 @@ services:
     - gateway-server
     logging:
       driver: json-file
+volumes:
+  tasksdatavolume:
 networks:
   spring-cloud-network:
     driver: bridge
