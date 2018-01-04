@@ -31,20 +31,20 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name = "TASKS")
+@Table(name = "tasks")
 @EntityListeners(AuditingEntityListener.class)
 public class Task {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true, updatable = false)
+	@Column(name = "id", nullable = false, unique = true, updatable = false)
 	private Long id;
 
 	@NotBlank
-	@Column(name = "TITLE", nullable = false)
+	@Column(name = "title", nullable = false)
 	private String title;
 
-	@Column(name = "COMPLETED", nullable = false)
+	@Column(name = "completed", nullable = false)
 	private Boolean completed = false;
 
 	@CreatedDate
@@ -55,16 +55,16 @@ public class Task {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "START")
+	@Column(name = "start")
 	private Date start;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DEADLINE")
+	@Column(name = "deadline")
 	private Date deadline;
 
 	@CreatedBy
-	@Column(name = "AUTHOR", nullable = false, updatable = false)
+	@Column(name = "author", nullable = false, updatable = false)
 	private String author;
 
 }
