@@ -17,15 +17,6 @@ services:
       driver: json-file
     volumes:
     - tasksdatavolume:/var/lib/mysql
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 3000:8080
-    depends_on:
-    - tasks-mysql
-    networks:
-    - spring-cloud-network
   discovery-server:
     build:
       context: ./discovery-server
