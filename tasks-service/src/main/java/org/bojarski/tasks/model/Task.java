@@ -11,6 +11,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -30,6 +31,7 @@ import lombok.Data;
  */
 @Data
 @Entity
+@Table(name = "TASKS")
 @EntityListeners(AuditingEntityListener.class)
 public class Task {
 
