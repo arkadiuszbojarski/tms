@@ -3,13 +3,6 @@ spring:
     name: tasks-service
   jpa:
     database: HSQL
-spring:
-  profiles: container
-  database: MYSQL
-  datasource:
-    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
 server:
   port: 8082
   use-forward-headers: true
@@ -30,3 +23,11 @@ security:
 management:
   security:
     sessions: never
+---
+spring:
+  profiles: container
+  database: MYSQL
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
