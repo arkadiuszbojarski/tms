@@ -34,22 +34,22 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name = "ACCOUNTS")
+@Table(name = "accounts")
 public class Account {
 
 	@Id
 	@NotBlank
-	@Column(name = "USERNAME", nullable = false, unique = true, updatable = true)
+	@Column(name = "username", nullable = false, unique = true, updatable = true)
 	private String username;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
-	@CollectionTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_NAME"))
-	@Column(name = "USER_ROLE", nullable = false)
+	@CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_name"))
+	@Column(name = "user_role", nullable = false)
 	private Set<Roles> roles = new HashSet<>(Arrays.asList(Roles.USER));
 
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@Transient
