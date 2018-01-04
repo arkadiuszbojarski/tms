@@ -84,6 +84,11 @@ services:
     - CONFIG_CLIENT=config-client
     - CONFIG_SECRET=c0n716-s3cr3t
     - EUREKA_URL=http://discovery-client:d1sc0v3r4-s3cr3t@discovery-server:8761/eureka
+    - DATABASE_HOST=accounts-mysql
+    - DATABASE_USER=dbuser
+    - DATABASE_PASSWORD=dbpass
+    - DATABASE_NAME=accounts
+    - DATABASE_PORT=3306
     networks:
     - spring-cloud-network
     links:
