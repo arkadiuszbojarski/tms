@@ -17,6 +17,23 @@ services:
       driver: json-file
     volumes:
     - tasksdatavolume:/var/lib/mysql
+  accounts-mysql:
+    container_name: accounts-mysql
+    image: mysql:latest
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_DATABASE=accounts
+    - MYSQL_USER=dbuser
+    - MYSQL_PASSWORD=dbpass
+    expose:
+    - 3306
+    restart: always
+    networks:
+    - spring-cloud-network
+    logging:
+      driver: json-file
+    volumes:
+    - accountsdatavolume:/var/lib/mysql
   discovery-server:
     build:
       context: ./discovery-server
@@ -72,7 +89,9 @@ services:
     links:
     - discovery-server:discovery-server
     - configuration-server:configuration-server
+    - accounts-mysql:accounts-mysql
     depends_on:
+    - accounts-mysql
     - configuration-server
     logging:
       driver: json-file
@@ -147,6 +166,7 @@ services:
       driver: json-file
 volumes:
   tasksdatavolume:
+  accountsdatavolume:
 networks:
   spring-cloud-network:
     driver: bridge
