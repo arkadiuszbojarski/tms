@@ -1,8 +1,6 @@
 package org.bojarski.tasks.repository;
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 
 import org.bojarski.tasks.model.QTask;
 import org.bojarski.tasks.model.Task;
@@ -40,21 +38,6 @@ public interface TasksRepository extends PagingAndSortingRepository<Task, Long>,
 			BooleanBuilder predicate = new BooleanBuilder();
 			values.forEach(value -> predicate.or(path.containsIgnoreCase(value)));
 			return predicate;
-		});
-
-		bindings.bind(root.created).all((path, value) -> {
-			Iterator<? extends Date> it = value.iterator();
-			return path.between(it.next(), it.next());
-		});
-		
-		bindings.bind(root.deadline).all((path, value) -> {
-			Iterator<? extends Date> it = value.iterator();
-			return path.between(it.next(), it.next());
-		});
-		
-		bindings.bind(root.start).all((path, value) -> {
-			Iterator<? extends Date> it = value.iterator();
-			return path.between(it.next(), it.next());
 		});
 	}
 }

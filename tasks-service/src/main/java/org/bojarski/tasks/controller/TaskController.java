@@ -109,16 +109,18 @@ public class TaskController {
 	public ResponseEntity<?> search(
 			@PageableDefault(size = 20, sort = "title", direction = Direction.ASC) final Pageable pageable,
 			@QuerydslPredicate(root = Task.class) final Predicate initial,
-			@RequestParam(required = false, name = "day") @DateTimeFormat(pattern="yyyy-MM-dd") final Date day,
+			@RequestParam(required = false, name = "from") @DateTimeFormat(pattern="yyyy-MM-dd") final Date from,
+			@RequestParam(required = false, name = "to") @DateTimeFormat(pattern="yyyy-MM-dd") final Date to,
 			final Principal principal) {
 		QTask task = QTask.task;
 		BooleanBuilder predicate = new BooleanBuilder(initial);
 
 		predicate.and(task.author.eq(principal.getName()));
-		Optional.ofNullable(day).ifPresent(forDay -> {
-			predicate.and(task.start.loe(day));
-			predicate.and(task.deadline.isNull().or(task.deadline.goe(day)));
-		});
+		if (from != null && to != null) {
+			predicate.and(task.start.loe(to));
+			predicate.and(task.deadline.isNull().or(task.deadline.goe(from)));
+		}
+
 		Page<Task> tasks = taskService.search(predicate, pageable);
 
 		return ResponseEntity.ok(tasks.hasContent() ? pagedTaskAssemble.toResource(tasks, taskAssembler)
