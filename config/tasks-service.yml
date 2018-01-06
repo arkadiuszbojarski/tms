@@ -1,10 +1,10 @@
 spring:
   application:
     name: tasks-service
-  datasource:
-    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+  jpa:
+    database: H2
+    hibernate:
+      ddl-auto: create-drop
 server:
   port: 8082
   use-forward-headers: true
@@ -25,3 +25,14 @@ security:
 management:
   security:
     sessions: never
+---
+spring:
+  profiles: container
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: none
+    datasource:
+      url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+      username: ${DATABASE_USER}
+      password: ${DATABASE_PASSWORD}

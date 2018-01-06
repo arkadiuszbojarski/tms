@@ -25,7 +25,7 @@ public class RepositoryLinksResourceProcessor implements ResourceProcessor<Repos
 	 */
 	@Override
 	public RepositoryLinksResource process(RepositoryLinksResource resource) {
-		resource.add(linkTo(methodOn(TaskController.class).search(null, null, null, null)).withRel("tasks"));
+		resource.add(linkTo(methodOn(TaskController.class).search(null, null, null, null, null)).withRel("tasks"));
 		return resource;
 	}
 

@@ -8,13 +8,12 @@ services:
     - MYSQL_DATABASE=tasks
     - MYSQL_USER=dbuser
     - MYSQL_PASSWORD=dbpass
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     expose:
     - 3306
     restart: always
     networks:
     - spring-cloud-network
-    logging:
-      driver: json-file
     volumes:
     - tasksdatavolume:/var/lib/mysql
   accounts-mysql:
@@ -25,13 +24,12 @@ services:
     - MYSQL_DATABASE=accounts
     - MYSQL_USER=dbuser
     - MYSQL_PASSWORD=dbpass
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     expose:
     - 3306
     restart: always
     networks:
     - spring-cloud-network
-    logging:
-      driver: json-file
     volumes:
     - accountsdatavolume:/var/lib/mysql
   discovery-server:
@@ -49,8 +47,6 @@ services:
     restart: always
     networks:
     - spring-cloud-network
-    logging:
-      driver: json-file
   configuration-server:
     build:
       context: ./configuration-server
@@ -71,8 +67,6 @@ services:
     - discovery-server:discovery-server
     depends_on:
     - discovery-server
-    logging:
-      driver: json-file
   uaa-server:
     build:
       context: ./uaa-server
@@ -98,8 +92,6 @@ services:
     depends_on:
     - accounts-mysql
     - configuration-server
-    logging:
-      driver: json-file
   tasks-service:
     build:
       context: ./tasks-service
@@ -125,8 +117,6 @@ services:
     depends_on:
     - tasks-mysql
     - configuration-server
-    logging:
-      driver: json-file
   gateway-server:
     build:
       context: ./gateway-server
@@ -150,8 +140,6 @@ services:
     depends_on:
     - uaa-server
     - tasks-service
-    logging:
-      driver: json-file
   client:
     build:
       context: ./client
@@ -167,8 +155,6 @@ services:
     - gateway-server:gateway-server
     depends_on:
     - gateway-server
-    logging:
-      driver: json-file
 volumes:
   tasksdatavolume:
   accountsdatavolume:
