@@ -2,6 +2,7 @@
   <div *ngIf="tasks | async; let resource; else loading;">
     <app-task-list-header (create)="onCreate($event)"></app-task-list-header>
     <hr>
+    <app-select></app-select>
     <app-task-list [tasks]="resource._embedded.tasks" (toggle)="onToggle($event)" (delete)="onDelete($event)" (update)="onUpdate($event)"></app-task-list>
     <app-task-list-footer [tasks]="resource._embedded.tasks"></app-task-list-footer>
   </div>

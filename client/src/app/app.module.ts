@@ -19,6 +19,7 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
 import { ErrorComponent } from './component/error/error.component';
 import { RegisterComponent } from './component/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SelectComponent } from './component/select/select.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     PageNotFoundComponent,
     ErrorComponent,
-    RegisterComponent
+    RegisterComponent,
+    SelectComponent
   ],
   imports: [
     BrowserModule,

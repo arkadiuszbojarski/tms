@@ -1,0 +1,60 @@
+<form>
+  <legend>Select tasks:</legend>
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <div class="input-group">
+        <div class="input-group-addon col-sm-2">
+          With title
+        </div>
+        <input type="text" id="title" class="form-control col-sm-10" name="title" [(ngModel)]="title">
+        <span class="input-group-btn">
+          <button class="btn btn-outline-secondary" type="button" (click)="refresh()">
+            Search <i class="material-icons">find_replace</i>
+          </button>
+          <button class="btn btn-outline-secondary" type="button" (click)="this.title=''">
+            Clear <i class="material-icons">delete</i>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-sm-12">
+      <div class="btn-group" role="group">
+        <button class="btn btn-outline-secondary" (click)="forToday()" type="button">
+          For today
+        </button>
+        <button class="btn btn-outline-secondary" (click)="forRange()" type="button">
+          For range
+        </button>
+        <button class="btn btn-outline-secondary" (click)="clear()" type="button">
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon col-sm-4">
+          From:
+        </span>
+        <input class="form-control col-sm-8" [(maxDate)]="selectTo" name="start" [(ngModel)]="selectFrom" ngbDatepicker #start="ngbDatepicker">
+        <button class="input-group-addon btn btn-outline-secondary" (click)="start.toggle()" type="button">
+          <i class="material-icons">date_range</i>
+        </button>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <div class="input-group">
+        <span class="input-group-addon col-sm-4">
+          To:
+        </span>
+        <input class="form-control col-sm-8" [(minDate)]="selectFrom" name="deadline" [(ngModel)]="selectTo" ngbDatepicker #deadline="ngbDatepicker">
+        <button class="input-group-addon btn btn-outline-secondary" (click)="deadline.toggle()" type="button">
+          <i class="material-icons">date_range</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

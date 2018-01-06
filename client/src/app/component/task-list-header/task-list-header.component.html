@@ -6,7 +6,7 @@
         <div class="input-group-addon col-sm-2">
           Task title
         </div>
-        <input type="text" id="title" class="form-control col-sm-10" placeholder="Water the plants..." required name="title" [(ngModel)]="task.title">
+        <textarea rows=1 id="title" class="form-control col-sm-10" placeholder="Water the plants..." required name="title" [(ngModel)]="task.title"></textarea>
         <span class="input-group-btn">
           <button class="btn btn-outline-secondary" (click)="isCollapsed = !isCollapsed" type="button">
             <i class="material-icons">schedule</i>
@@ -46,7 +46,7 @@
     </div>
 
     <fieldset>
-      <legend>Schedule repeating</legend>
+      <legend>Schedule repeating:</legend>
 
       <div class="form-row">
         <div class="form-group col-sm-4">
@@ -112,10 +112,10 @@
 
   <div class="form-row">
     <div class="form-group col-sm-12">
-      <button class="btn btn-outline-secondary col-sm-2" type="button" (click)="clearForm()">
-        Clear <i class="material-icons">cancel</i>
+      <button class="btn btn-outline-secondary" type="button" (click)="clearForm()">
+        Clear <i class="material-icons">delete</i>
       </button>
-        <button class="btn btn-outline-secondary col-sm-2" type="submit">
+        <button class="btn btn-outline-secondary" type="submit">
           Create <i class="material-icons">done</i>
         </button>
     </div>

@@ -20,7 +20,7 @@
             </ng-template>
           </button>
         </span>
-        <input type="text" name="title" class="form-control" [class.completed]="task.completed" [(ngModel)]="task.title" required>
+        <textarea rows=1 name="title" class="form-control" [class.completed]="task.completed" [(ngModel)]="task.title" required></textarea>
         <span class="input-group-btn">
           <button class="btn btn-outline-secondary" type="submit">
             <i class="material-icons">edit</i>

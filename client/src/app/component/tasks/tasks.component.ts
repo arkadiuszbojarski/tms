@@ -12,7 +12,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class TasksComponent implements OnInit {
 
-  public username: string;
   public tasks: Observable<TaskResource>;
 
   constructor(private _route: ActivatedRoute, private _service: TaskDataService) { }
@@ -23,6 +22,7 @@ export class TasksComponent implements OnInit {
 
   ngOnInit() {
     this.refreshTasks();
+    this._route.queryParams.subscribe(query => this.refreshTasks());
   }
 
   onToggle(task: Task) {
