@@ -35,7 +35,7 @@ export class SelectComponent {
       relativeTo: this._route,
       queryParams: {
         from: this.selectFrom ? `${this.selectFrom.year}-${this.selectFrom.month}-${this.selectFrom.day}` : null,
-        to: this.selectTo ? `${this.selectTo.year}-${this.selectTo.month}-${this.selectTo.day + 1}` : null,
+        to: this.selectTo ? `${this.selectTo.year}-${this.selectTo.month}-${this.selectTo.day}` : null,
         title: this.title
       },
       queryParamsHandling: 'merge'

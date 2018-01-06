@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             page: 0,
             size: 20,
             from: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
-            to: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate() + 1}`,
+            to: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
           }
         });
       this.user = new User();
