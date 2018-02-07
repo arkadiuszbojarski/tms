@@ -45,7 +45,7 @@ export class SelectComponent {
   public forToday(): void {
     const now: Date = new Date();
     this.selectFrom = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
-    this.selectTo = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() };
+    this.selectTo = { year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate() + 1 };
     this.refresh();
   }
 
